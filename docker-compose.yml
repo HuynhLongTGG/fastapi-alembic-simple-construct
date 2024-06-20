@@ -1,6 +1,22 @@
 version: '3.8'
 
 services:
+  workspace:
+    build: .
+    image: workspace-fastapi:latest
+    command:  
+      - "uvicorn"
+      - "main:app"
+      - "--host"
+      - "0.0.0.0"
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://test:test@postgres:5432/test
+    depends_on:
+      - postgres
+  
+
   postgres:
     image: postgres:latest
     ports:
